@@ -53,6 +53,27 @@
     background-color: #f5f5f5;
 }
 
+.registration-list td input,
+.registration-list td select {
+    width: 100%;
+    padding: 4px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.registration-list td button {
+    margin: 0 4px;
+    padding: 4px 8px;
+}
+
+.registration-list td button:first-child {
+    background-color: #28a745;
+}
+
+.registration-list td button:last-child {
+    background-color: #dc3545;
+}
+
 @media (max-width: 768px) {
     .registrations-content {
         flex-direction: column;

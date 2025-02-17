@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CreateRegistrationDto, registrationsService } from '../services/registrations.service';
 import { Workout, workoutsService } from '../services/workouts.service';
+import { traineesService } from '../services/trainees.service';
 
 interface RegistrationFormProps {
     onSuccess?: () => void;
@@ -30,6 +31,32 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSuccess })
         loadWorkouts();
     }, []);
 
+    const handleEmailChange = async (email: string) => {
+        setFormData(prev => ({ ...prev, inviteeEmail: email }));
+        
+        if (email) {
+            try {
+                const trainees = await traineesService.getTrainees();
+                const trainee = trainees.data.find(t => t.email.toLowerCase() === email.toLowerCase());
+                if (trainee) {
+                    setFormData(prev => ({
+                        ...prev,
+                        userId: trainee.id,
+                        inviteeEmail: email
+                    }));
+                } else {
+                    setFormData(prev => ({
+                        ...prev,
+                        userId: '',
+                        inviteeEmail: email
+                    }));
+                }
+            } catch (error) {
+                console.error('Failed to fetch trainee:', error);
+            }
+        }
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
@@ -50,10 +77,14 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSuccess })
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }));
+        if (name === 'inviteeEmail') {
+            handleEmailChange(value);
+        } else {
+            setFormData(prev => ({
+                ...prev,
+                [name]: value
+            }));
+        }
     };
 
     return (
@@ -76,23 +107,24 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSuccess })
                 </select>
             </div>
             <div>
-                <label>User ID:</label>
-                <input
-                    type="text"
-                    name="userId"
-                    value={formData.userId}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label>Invitee Email:</label>
+                <label>Email:</label>
                 <input
                     type="email"
                     name="inviteeEmail"
                     value={formData.inviteeEmail}
                     onChange={handleChange}
                     required
+                    placeholder="Enter trainee email"
+                />
+            </div>
+            <div>
+                <label>User ID:</label>
+                <input
+                    type="text"
+                    value={formData.userId}
+                    readOnly
+                    placeholder="Will be set automatically"
+                    style={{ backgroundColor: '#f5f5f5' }}
                 />
             </div>
             <div>

@@ -1,8 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { authService } from '../services/auth.service';
+import '../styles/Layout.css';
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const location = useLocation();
+    
     const handleLogout = async () => {
         await authService.logout();
         window.location.reload();
@@ -10,14 +13,31 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
     return (
         <div className="layout">
-            <nav className="navigation">
-                <ul>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/trainees">Trainees</Link></li>
-                    <li><Link to="/workouts">Workouts</Link></li>
-                    <li><Link to="/routines">Routines</Link></li>
-                    <li><Link to="/registrations">Registrations</Link></li>
-                    <li><button onClick={handleLogout}>Logout</button></li>
+            <nav className="main-nav">
+                <div className="nav-logo">
+                    <h1>Gym Registration</h1>
+                </div>
+                <ul className="nav-links">
+                    {[
+                        { path: '/trainees', label: 'Trainees' },
+                        { path: '/workouts', label: 'Workouts' },
+                        { path: '/routines', label: 'Routines' },
+                        { path: '/registrations', label: 'Registrations' },
+                    ].map(({ path, label }) => (
+                        <li key={path}>
+                            <Link 
+                                to={path} 
+                                className={location.pathname === path ? 'active' : ''}
+                            >
+                                {label}
+                            </Link>
+                        </li>
+                    ))}
+                    <li>
+                        <button onClick={handleLogout} className="logout-button">
+                            Logout
+                        </button>
+                    </li>
                 </ul>
             </nav>
             <main className="main-content">

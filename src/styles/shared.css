@@ -49,3 +49,116 @@
 .timezone-checkbox input[type="checkbox"] {
     margin: 0;
 }
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin: 0;
+}
+
+/* Workout Form Styles */
+.workout-form .form-group {
+    margin-bottom: 20px;
+}
+
+/* Workout Form Checkbox Styles */
+.workout-form .checkbox-group {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    align-items: flex-start !important;
+    width: 100% !important;
+}
+
+.workout-form .checkbox-container {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin-bottom: 0 !important;
+    width: auto !important;
+    justify-content: flex-start !important;
+    padding-left: 0 !important;
+    white-space: nowrap !important;  /* Add this */
+}
+
+.workout-form .checkbox-container label {
+    margin: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;  /* Add this */
+    line-height: 1 !important;      /* Add this */
+}
+
+.workout-form .checkbox-container input[type="checkbox"] {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.workout-form .checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;  /* Add this */
+}
+
+.workout-form .checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0;  /* Override previous margin */
+    width: 100%;  /* Add this */
+    justify-content: flex-start;  /* Add this */
+}
+
+.workout-form textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 8px;
+    margin-top: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.workout-form .color-input-container {
+    width: 100%;  /* Add this */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.workout-form .color-input-container input[type="color"] {
+    width: 50px;
+    height: 30px;
+    padding: 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.workout-form label {
+    font-weight: 500;
+    margin-bottom: 4px;
+    display: block;
+}
+
+/* Update existing button styles */
+.workout-form button[type="submit"] {
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.workout-form button[type="submit"]:hover {
+    background-color: #218838;
+}

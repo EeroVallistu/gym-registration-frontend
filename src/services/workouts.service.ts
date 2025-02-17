@@ -15,6 +15,13 @@ export interface CreateWorkoutDto {
     color?: string;
 }
 
+export interface WorkoutFormData {
+    name: string;
+    duration: number;
+    description?: string;
+    color?: string;
+}
+
 class WorkoutsService {
     async getWorkouts(): Promise<Workout[]> {
         const response = await api.get('/workouts');

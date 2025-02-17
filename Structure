@@ -1,0 +1,10 @@
+gym-registration-frontend/
+├── src/
+│   ├── components/     # Reusable components
+│   ├── pages/         # Page components
+│   ├── services/      # API calls
+│   ├── types/         # TypeScript interfaces
+│   ├── App.tsx
+│   └── index.tsx
+├── public/
+└── package.json

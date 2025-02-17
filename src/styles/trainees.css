@@ -1,0 +1,151 @@
+.trainee-list {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.trainee-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.trainee-list th,
+.trainee-list td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.trainee-form {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.trainee-form input {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.trainee-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.trainee-form button:hover {
+    background-color: #0056b3;
+}
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.navigation {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.navigation ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 1rem;
+}
+
+.navigation a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.navigation a:hover {
+    color: #0056b3;
+}
+
+.main-content {
+    flex: 1;
+    padding: 2rem;
+}
+
+.trainees-page {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.trainees-page h1 {
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+.trainees-content {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 300px 1fr;
+}
+
+@media (max-width: 768px) {
+    .trainees-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.login-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-form h1 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.error-message {
+    color: #dc3545;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background-color: #f8d7da;
+    border-radius: 4px;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-size: 1.2rem;
+}
+
+.error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #dc3545;
+    font-size: 1.2rem;
+}

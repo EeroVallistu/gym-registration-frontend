@@ -1,0 +1,41 @@
+.trainees-page {
+    padding: 20px;
+}
+
+.trainees-content {
+    display: flex;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+.trainees-left, .trainees-right {
+    flex: 1;
+}
+
+.trainees-left {
+    max-width: 400px;
+}
+
+.trainees-right {
+    flex-grow: 2;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+h2 {
+    margin-bottom: 15px;
+    color: #444;
+}
+
+@media (max-width: 768px) {
+    .trainees-content {
+        flex-direction: column;
+    }
+
+    .trainees-left {
+        max-width: 100%;
+    }
+}

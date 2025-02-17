@@ -16,6 +16,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                     <li><Link to="/trainees">Trainees</Link></li>
                     <li><Link to="/workouts">Workouts</Link></li>
                     <li><Link to="/routines">Routines</Link></li>
+                    <li><Link to="/registrations">Registrations</Link></li>
                     <li><button onClick={handleLogout}>Logout</button></li>
                 </ul>
             </nav>

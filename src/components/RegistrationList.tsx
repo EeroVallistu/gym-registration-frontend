@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Registration, registrationsService } from '../services/registrations.service';
 import { Workout, workoutsService } from '../services/workouts.service';
+import '../styles/shared.css';
 
 export const RegistrationList: React.FC = () => {
     const [registrations, setRegistrations] = useState<Registration[]>([]);
@@ -161,8 +162,14 @@ export const RegistrationList: React.FC = () => {
                                     <td>{registration.endTime ? new Date(registration.endTime).toLocaleString() : 'N/A'}</td>
                                     <td>{registration.status}</td>
                                     <td>
-                                        <button onClick={() => handleEdit(registration)}>Edit</button>
-                                        <button onClick={() => handleDelete(registration.id)}>Delete</button>
+                                        <div className="action-buttons">
+                                            <button className="edit-button" onClick={() => handleEdit(registration)}>
+                                                Edit
+                                            </button>
+                                            <button className="delete-button" onClick={() => handleDelete(registration.id)}>
+                                                Delete
+                                            </button>
+                                        </div>
                                     </td>
                                 </>
                             )}

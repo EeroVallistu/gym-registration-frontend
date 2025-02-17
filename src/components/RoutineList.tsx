@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Routine, routinesService } from '../services/routines.service';
+import '../styles/shared.css';
 
 export const RoutineList: React.FC = () => {
     const [routines, setRoutines] = useState<Routine[]>([]);
@@ -31,6 +32,10 @@ export const RoutineList: React.FC = () => {
         }
     };
 
+    const handleEdit = (routine: Routine) => {
+        // Implement edit functionality here
+    };
+
     if (loading) return <div>Loading...</div>;
 
     return (
@@ -46,7 +51,14 @@ export const RoutineList: React.FC = () => {
                             </div>
                         ))}
                     </div>
-                    <button onClick={() => handleDelete(routine.userId)}>Delete</button>
+                    <div className="action-buttons">
+                        <button className="edit-button" onClick={() => handleEdit(routine)}>
+                            Edit
+                        </button>
+                        <button className="delete-button" onClick={() => handleDelete(routine.userId)}>
+                            Delete
+                        </button>
+                    </div>
                 </div>
             ))}
         </div>

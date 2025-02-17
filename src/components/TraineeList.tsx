@@ -31,6 +31,11 @@ export const TraineeList: React.FC = () => {
         }
     };
 
+    const copyToClipboard = (id: string) => {
+        navigator.clipboard.writeText(id);
+        alert('ID copied to clipboard!');
+    };
+
     if (loading) return <div>Loading...</div>;
 
     return (
@@ -39,6 +44,7 @@ export const TraineeList: React.FC = () => {
             <table>
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Timezone</th>
@@ -48,6 +54,21 @@ export const TraineeList: React.FC = () => {
                 <tbody>
                     {trainees.map(trainee => (
                         <tr key={trainee.id}>
+                            <td>
+                                <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                    {trainee.id}
+                                    <button 
+                                        onClick={() => copyToClipboard(trainee.id)}
+                                        style={{ 
+                                            padding: '2px 8px',
+                                            fontSize: '12px',
+                                            backgroundColor: '#6c757d'
+                                        }}
+                                    >
+                                        Copy ID
+                                    </button>
+                                </span>
+                            </td>
                             <td>{trainee.name}</td>
                             <td>{trainee.email}</td>
                             <td>{trainee.timezone || 'N/A'}</td>

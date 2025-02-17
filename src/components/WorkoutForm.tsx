@@ -1,8 +1,19 @@
 import React, { useState } from 'react';
-import { CreateWorkoutDto, workoutsService } from '../services/workouts.service';
+import { workoutsService } from '../services/workouts.service';
 
-export const WorkoutForm: React.FC<{ onSuccess?: () => void }> = ({ onSuccess }) => {
-    const [formData, setFormData] = useState<CreateWorkoutDto>({
+interface WorkoutFormProps {
+    onSuccess?: () => void;
+}
+
+interface WorkoutFormData {
+    name: string;
+    duration: number;
+    description?: string;
+    color?: string;
+}
+
+export const WorkoutForm: React.FC<WorkoutFormProps> = ({ onSuccess }) => {
+    const [formData, setFormData] = useState<WorkoutFormData>({
         name: '',
         duration: 60,
         description: '',
@@ -21,9 +32,10 @@ export const WorkoutForm: React.FC<{ onSuccess?: () => void }> = ({ onSuccess })
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
         setFormData(prev => ({
             ...prev,
-            [e.target.name]: e.target.value
+            [name]: name === 'duration' ? parseInt(value) || 0 : value
         }));
     };
 
@@ -31,35 +43,36 @@ export const WorkoutForm: React.FC<{ onSuccess?: () => void }> = ({ onSuccess })
         <form onSubmit={handleSubmit} className="workout-form">
             <h3>Add New Workout</h3>
             <div>
+                <label>Name:</label>
                 <input
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    placeholder="Workout Name"
                     required
                 />
             </div>
             <div>
+                <label>Duration (minutes):</label>
                 <input
                     type="number"
                     name="duration"
                     value={formData.duration}
                     onChange={handleChange}
-                    placeholder="Duration (minutes)"
-                    required
                     min="1"
+                    required
                 />
             </div>
             <div>
+                <label>Description:</label>
                 <textarea
                     name="description"
                     value={formData.description}
                     onChange={handleChange}
-                    placeholder="Description"
                 />
             </div>
             <div>
+                <label>Color:</label>
                 <input
                     type="color"
                     name="color"
@@ -67,7 +80,7 @@ export const WorkoutForm: React.FC<{ onSuccess?: () => void }> = ({ onSuccess })
                     onChange={handleChange}
                 />
             </div>
-            <button type="submit">Add Workout</button>
+            <button type="submit">Create Workout</button>
         </form>
     );
 };

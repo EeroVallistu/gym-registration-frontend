@@ -39,7 +39,7 @@ export const WorkoutList: React.FC = () => {
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Duration</th>
+                        <th>Duration (min)</th>
                         <th>Description</th>
                         <th>Color</th>
                         <th>Actions</th>
@@ -49,10 +49,10 @@ export const WorkoutList: React.FC = () => {
                     {workouts.map(workout => (
                         <tr key={workout.id}>
                             <td>{workout.name}</td>
-                            <td>{workout.duration} min</td>
+                            <td>{workout.duration}</td>
                             <td>{workout.description || 'N/A'}</td>
                             <td>
-                                <div 
+                                <div
                                     style={{
                                         backgroundColor: workout.color || '#000',
                                         width: '20px',

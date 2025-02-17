@@ -34,6 +34,11 @@ class WorkoutsService {
         const response = await api.patch(`/workouts/${id}`, data);
         return response.data;
     }
+
+    async getWorkoutById(id: string): Promise<Workout> {
+        const response = await api.get(`/workouts/${id}`);
+        return response.data;
+    }
 }
 
 export const workoutsService = new WorkoutsService();

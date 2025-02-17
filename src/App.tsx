@@ -7,6 +7,7 @@ import { LoginPage } from './pages/LoginPage';
 import { WorkoutsPage } from './pages/WorkoutsPage';
 import { RoutinesPage } from './pages/RoutinesPage';
 import { RegistrationsPage } from './pages/RegistrationsPage';
+import { RegisterPage } from './pages/RegisterPage';
 
 const App: React.FC = () => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -28,6 +29,7 @@ const App: React.FC = () => {
             <Layout>
                 <Routes>
                     <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
+                    <Route path="/register" element={<RegisterPage />} />
                     <Route path="/trainees" element={isAuthenticated ? <TraineesPage /> : <Navigate to="/login" />} />
                     <Route path="/workouts" element={isAuthenticated ? <WorkoutsPage /> : <Navigate to="/login" />} />
                     <Route path="/routines" element={isAuthenticated ? <RoutinesPage /> : <Navigate to="/login" />} />

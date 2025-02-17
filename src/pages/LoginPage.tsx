@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { authService } from '../services/auth.service';
 
 interface LoginPageProps {
@@ -25,8 +25,8 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
     };
 
     return (
-        <div className="login-page">
-            <form onSubmit={handleSubmit} className="login-form">
+        <div className="auth-form-container">
+            <form onSubmit={handleSubmit} className="auth-form">
                 <h1>Login</h1>
                 {error && <div className="error-message">{error}</div>}
                 <div>
@@ -48,6 +48,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
                     />
                 </div>
                 <button type="submit">Login</button>
+                <div className="auth-links">
+                    <Link to="/register">Don't have an account? Register</Link>
+                </div>
             </form>
         </div>
     );

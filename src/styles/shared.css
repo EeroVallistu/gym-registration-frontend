@@ -33,3 +33,19 @@
 .delete-button:hover {
     background-color: #c82333 !important;
 }
+
+.timezone-select-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.timezone-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.timezone-checkbox input[type="checkbox"] {
+    margin: 0;
+}

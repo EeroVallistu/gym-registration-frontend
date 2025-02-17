@@ -11,7 +11,7 @@ export interface CreateTraineeDto {
     name: string;
     email: string;
     password: string;
-    timezone: string;
+    timezone?: string;  // Make timezone optional
 }
 
 class TraineesService {

@@ -3,9 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import { traineesService } from '../services/trainees.service';
 import { TimeZoneSelect } from './TimeZoneSelect';
 
+interface RegisterFormData {
+    name: string;
+    email: string;
+    password: string;
+    timezone?: string;  // Changed to optional
+}
+
 export const RegisterForm: React.FC = () => {
     const navigate = useNavigate();
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<RegisterFormData>({
         name: '',
         email: '',
         password: '',
@@ -17,7 +24,13 @@ export const RegisterForm: React.FC = () => {
         e.preventDefault();
         setError('');
         try {
-            await traineesService.createTrainee(formData);
+            const submitData: RegisterFormData = {
+                name: formData.name,
+                email: formData.email,
+                password: formData.password,
+                ...(formData.timezone && { timezone: formData.timezone })
+            };
+            await traineesService.createTrainee(submitData);
             navigate('/login', { state: { message: 'Registration successful. Please log in.' } });
         } catch (err: any) {
             setError(err.response?.data?.message || 'Registration failed');
@@ -79,11 +92,10 @@ export const RegisterForm: React.FC = () => {
                 </div>
 
                 <div className="form-group">
-                    <label>Timezone:</label>
+                    <label>Timezone (optional):</label>
                     <TimeZoneSelect
-                        value={formData.timezone}
+                        value={formData.timezone || ''}
                         onChange={handleTimezoneChange}
-                        required
                     />
                 </div>
 

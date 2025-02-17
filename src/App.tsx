@@ -4,6 +4,7 @@ import { authService } from './services/auth.service';
 import { Layout } from './components/Layout';
 import { TraineesPage } from './pages/TraineesPage';
 import { LoginPage } from './pages/LoginPage';
+import { WorkoutsPage } from './pages/WorkoutsPage';
 
 const App: React.FC = () => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -26,6 +27,7 @@ const App: React.FC = () => {
                 <Routes>
                     <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
                     <Route path="/trainees" element={isAuthenticated ? <TraineesPage /> : <Navigate to="/login" />} />
+                    <Route path="/workouts" element={isAuthenticated ? <WorkoutsPage /> : <Navigate to="/login" />} />
                     <Route path="/" element={<Navigate to="/trainees" />} />
                 </Routes>
             </Layout>

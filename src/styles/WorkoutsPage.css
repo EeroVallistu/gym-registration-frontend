@@ -1,0 +1,64 @@
+.workouts-page {
+    padding: 20px;
+}
+
+.workouts-content {
+    display: flex;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+.workouts-left {
+    flex: 1;
+    max-width: 400px;
+}
+
+.workouts-right {
+    flex: 2;
+}
+
+.workout-form {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: white;
+}
+
+.workout-form div {
+    margin-bottom: 15px;
+}
+
+.workout-form input,
+.workout-form textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.workout-list table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.workout-list th,
+.workout-list td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.workout-list th {
+    background-color: #f5f5f5;
+}
+
+@media (max-width: 768px) {
+    .workouts-content {
+        flex-direction: column;
+    }
+
+    .workouts-left {
+        max-width: 100%;
+    }
+}

@@ -1,44 +1,49 @@
 import api from './api';
 
 class AuthService {
-    async login(email: string, password: string): Promise<void> {
-        try {
-            const response = await api.post('/sessions', { email, password });
-            const { token } = response.data;
-            localStorage.setItem('token', token);
-            api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        } catch (error) {
-            console.error('Login error:', error);
-            throw error;
-        }
+    private tokenKey = 'auth_token';
+
+    setToken(token: string) {
+        localStorage.setItem(this.tokenKey, token);
+        api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     }
 
-    async logout(): Promise<void> {
-        try {
-            await api.delete('/sessions');
-        } finally {
-            localStorage.removeItem('token');
-            delete api.defaults.headers.common['Authorization'];
-        }
+    getToken() {
+        return localStorage.getItem(this.tokenKey);
     }
 
-    async checkAuth(): Promise<boolean> {
-        const token = localStorage.getItem('token');
-        if (!token) return false;
+    clearToken() {
+        localStorage.removeItem(this.tokenKey);
+        delete api.defaults.headers.common['Authorization'];
+    }
 
-        try {
-            api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-            await api.get('/sessions');
-            return true;
-        } catch {
-            localStorage.removeItem('token');
-            delete api.defaults.headers.common['Authorization'];
+    async login(email: string, password: string) {
+        const response = await api.post('/sessions', { email, password });
+        if (response.data.token) {
+            this.setToken(response.data.token);
+        }
+        return response.data;
+    }
+
+    async logout() {
+        await api.delete('/sessions');
+        this.clearToken();
+    }
+
+    async checkAuth() {
+        const token = this.getToken();
+        if (!token) {
             return false;
         }
-    }
 
-    getToken(): string | null {
-        return localStorage.getItem('token');
+        try {
+            api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            const response = await api.get('/sessions');
+            return response.data.authenticated;
+        } catch (error) {
+            this.clearToken();
+            return false;
+        }
     }
 }
 

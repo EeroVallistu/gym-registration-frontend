@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { authService } from '../services/auth.service';
+import { getLastLocation } from '../utils/navigation';
 
 interface LoginPageProps {
     onLogin: () => void;
@@ -17,7 +18,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
         try {
             await authService.login(email, password);
             onLogin();
-            navigate('/trainees');
+            navigate(getLastLocation());
         } catch (err) {
             setError('Invalid email or password');
             console.error(err);

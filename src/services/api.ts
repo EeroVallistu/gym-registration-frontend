@@ -16,11 +16,6 @@ if (token) {
 
 api.interceptors.request.use(
     config => {
-        console.log('Making request to:', `${config.baseURL}${config.url}`, {
-            method: config.method?.toUpperCase(),
-            data: config.data,
-            headers: config.headers
-        });
         return config;
     },
     error => Promise.reject(error)
@@ -28,16 +23,9 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
     response => {
-        console.log('Received response:', response.status, response.data);
         return response;
     },
     error => {
-        console.error('API Error:', {
-            url: error.config?.url,
-            method: error.config?.method,
-            status: error.response?.status,
-            data: error.response?.data
-        });
         return Promise.reject(error);
     }
 );

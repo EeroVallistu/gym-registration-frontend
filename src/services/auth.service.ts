@@ -1,5 +1,10 @@
 import api from './api';
 
+interface SessionResponse {
+    authenticated: boolean;
+    userId?: string;
+}
+
 class AuthService {
     private tokenKey = 'auth_token';
 
@@ -30,19 +35,22 @@ class AuthService {
         this.clearToken();
     }
 
-    async checkAuth() {
+    async checkAuth(): Promise<SessionResponse> {
         const token = this.getToken();
         if (!token) {
-            return false;
+            return { authenticated: false };
         }
 
         try {
             api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             const response = await api.get('/sessions');
-            return response.data.authenticated;
+            return {
+                authenticated: true,
+                userId: response.data.trainee?.id
+            };
         } catch (error) {
             this.clearToken();
-            return false;
+            return { authenticated: false };
         }
     }
 }

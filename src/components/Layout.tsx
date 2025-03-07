@@ -25,6 +25,8 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                             { path: '/workouts', label: 'Workouts' },
                             { path: '/routines', label: 'Routines' },
                             { path: '/registrations', label: 'Registrations' },
+                            { path: '/my-routines', label: 'My Routines' },
+                            { path: '/my-registrations', label: 'My Registrations' },
                         ].map(({ path, label }) => (
                             <li key={path}>
                                 <Link 

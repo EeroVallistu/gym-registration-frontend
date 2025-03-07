@@ -9,6 +9,8 @@ import { RoutinesPage } from './pages/RoutinesPage';
 import { RegistrationsPage } from './pages/RegistrationsPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { saveLastLocation, getLastLocation } from './utils/navigation';
+import { MyRoutinesPage } from './pages/MyRoutinesPage';
+import { MyRegistrationsPage } from './pages/MyRegistrationsPage';
 
 const AppContent: React.FC = () => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -17,8 +19,8 @@ const AppContent: React.FC = () => {
 
     useEffect(() => {
         const checkAuthentication = async () => {
-            const authenticated = await authService.checkAuth();
-            setIsAuthenticated(authenticated);
+            const response = await authService.checkAuth();
+            setIsAuthenticated(response.authenticated);
             setIsLoading(false);
         };
         checkAuthentication();
@@ -47,6 +49,8 @@ const AppContent: React.FC = () => {
                 <Route path="/workouts" element={isAuthenticated ? <WorkoutsPage /> : <Navigate to="/login" />} />
                 <Route path="/routines" element={isAuthenticated ? <RoutinesPage /> : <Navigate to="/login" />} />
                 <Route path="/registrations" element={isAuthenticated ? <RegistrationsPage /> : <Navigate to="/login" />} />
+                <Route path="/my-routines" element={isAuthenticated ? <MyRoutinesPage /> : <Navigate to="/login" />} />
+                <Route path="/my-registrations" element={isAuthenticated ? <MyRegistrationsPage /> : <Navigate to="/login" />} />
                 <Route path="/" element={<Navigate to={getLastLocation()} />} />
             </Routes>
         </Layout>

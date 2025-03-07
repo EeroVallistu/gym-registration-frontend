@@ -4,7 +4,12 @@ import { TimeInput } from './TimeInput';
 
 const DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
-export const RoutineForm: React.FC<{ onSuccess?: () => void }> = ({ onSuccess }) => {
+interface RoutineFormProps {
+    onSuccess?: () => void;
+    initialUserId?: string;
+}
+
+export const RoutineForm: React.FC<RoutineFormProps> = ({ onSuccess, initialUserId }) => {
     useEffect(() => {
         // Force 24-hour time format
         try {
@@ -16,7 +21,7 @@ export const RoutineForm: React.FC<{ onSuccess?: () => void }> = ({ onSuccess })
     }, []);
 
     const [formData, setFormData] = useState<CreateRoutineDto>({
-        userId: '',
+        userId: initialUserId || '',
         availability: []
     });
 

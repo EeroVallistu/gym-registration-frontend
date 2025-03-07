@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: '/api',  // Changed from http://localhost:3000 to /api
     headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -16,10 +16,6 @@ if (token) {
 
 api.interceptors.request.use(
     config => {
-        // Remove '/api' prefix from URL if it exists
-        if (config.url?.startsWith('/api/')) {
-            config.url = config.url.substring(4);
-        }
         console.log('Making request to:', `${config.baseURL}${config.url}`, {
             method: config.method?.toUpperCase(),
             data: config.data,

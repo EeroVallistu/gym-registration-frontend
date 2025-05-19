@@ -23,6 +23,16 @@ export const RegisterForm: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
+        // Name must not be only spaces
+        if (!formData.name.trim()) {
+            setError('Name cannot be only spaces.');
+            return;
+        }
+        // Password must not be only spaces
+        if (!formData.password.trim()) {
+            setError('Password cannot be only spaces.');
+            return;
+        }
         try {
             const submitData: RegisterFormData = {
                 name: formData.name,

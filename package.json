@@ -29,9 +29,7 @@
     "clean": "if exist node_modules\\.cache rmdir /s /q node_modules\\.cache",
     "start": "react-scripts start",
     "start:api": "node API/server.js",
-    "dev": "concurrently \"npm run start\" \"npm run start:api\"",
     "build": "react-scripts build",
-    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

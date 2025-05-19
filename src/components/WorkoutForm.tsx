@@ -19,12 +19,19 @@ export const WorkoutForm: React.FC<WorkoutFormProps> = ({ onSuccess }) => {
     });
     const [useDescription, setUseDescription] = useState(false);
     const [useColor, setUseColor] = useState(false);
+    const [error, setError] = useState<string>('');
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setError('');
+        const trimmedName = formData.name.trim();
+        if (!trimmedName) {
+            setError('Name cannot be empty or only spaces.');
+            return;
+        }
         try {
             const submitData = {
-                name: formData.name,
+                name: trimmedName,
                 duration: formData.duration,
                 ...(useDescription && formData.description && { description: formData.description }),
                 ...(useColor && formData.color && { color: formData.color })
@@ -35,6 +42,7 @@ export const WorkoutForm: React.FC<WorkoutFormProps> = ({ onSuccess }) => {
             setUseColor(false);
             if (onSuccess) onSuccess();
         } catch (error) {
+            setError('Failed to create workout.');
             console.error('Failed to create workout:', error);
         }
     };
@@ -50,7 +58,7 @@ export const WorkoutForm: React.FC<WorkoutFormProps> = ({ onSuccess }) => {
     return (
         <form onSubmit={handleSubmit} className="workout-form">
             <h3>Add New Workout</h3>
-            
+            {error && <div style={{ color: 'red', marginBottom: '10px' }}>{error}</div>}
             <div className="form-group">
                 <label>Name:</label>
                 <input

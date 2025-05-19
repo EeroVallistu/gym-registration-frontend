@@ -7,6 +7,7 @@ export const WorkoutList: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [editingId, setEditingId] = useState<string | null>(null);
     const [editForm, setEditForm] = useState<Partial<Workout>>({});
+    const [error, setError] = useState<string>('');
 
     useEffect(() => {
         loadWorkouts();
@@ -31,17 +32,25 @@ export const WorkoutList: React.FC = () => {
             description: workout.description,
             color: workout.color
         });
+        setError('');
     };
 
     const handleUpdate = async (id: string) => {
+        setError('');
+        const trimmedName = (editForm.name || '').trim();
+        if (!trimmedName) {
+            setError('Name cannot be empty or only spaces.');
+            return;
+        }
         try {
-            const updated = await workoutsService.updateWorkout(id, editForm);
+            const updated = await workoutsService.updateWorkout(id, { ...editForm, name: trimmedName });
             setWorkouts(workouts.map(workout => 
                 workout.id === id ? updated : workout
             ));
             setEditingId(null);
             setEditForm({});
         } catch (error) {
+            setError('Failed to update workout.');
             console.error('Failed to update workout:', error);
         }
     };
@@ -49,6 +58,7 @@ export const WorkoutList: React.FC = () => {
     const handleCancelEdit = () => {
         setEditingId(null);
         setEditForm({});
+        setError('');
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -74,6 +84,7 @@ export const WorkoutList: React.FC = () => {
 
     return (
         <div className="workout-list">
+            {error && <div style={{ color: 'red', marginBottom: '10px' }}>{error}</div>}
             <table>
                 <thead>
                     <tr>

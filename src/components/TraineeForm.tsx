@@ -9,14 +9,22 @@ export const TraineeForm: React.FC<{ onSuccess?: () => void }> = ({ onSuccess })
         password: '',
         timezone: ''
     });
+    const [error, setError] = useState<string>('');
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setError('');
+        const trimmedName = formData.name.trim();
+        if (!trimmedName) {
+            setError('Name cannot be empty or only spaces.');
+            return;
+        }
         try {
-            await traineesService.createTrainee(formData);
+            await traineesService.createTrainee({ ...formData, name: trimmedName });
             setFormData({ name: '', email: '', password: '', timezone: '' });
             if (onSuccess) onSuccess();
         } catch (error) {
+            setError('Failed to create trainee.');
             console.error('Failed to create trainee:', error);
         }
     };
@@ -31,6 +39,7 @@ export const TraineeForm: React.FC<{ onSuccess?: () => void }> = ({ onSuccess })
     return (
         <form onSubmit={handleSubmit} className="trainee-form">
             <h3>Add New Trainee</h3>
+            {error && <div style={{ color: 'red', marginBottom: '10px' }}>{error}</div>}
             <div>
                 <input
                     type="text"

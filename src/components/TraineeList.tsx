@@ -6,6 +6,7 @@ export const TraineeList: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [editingId, setEditingId] = useState<string | null>(null);
     const [editForm, setEditForm] = useState<Partial<Trainee>>({});
+    const [error, setError] = useState<string>('');
 
     useEffect(() => {
         loadTrainees();
@@ -45,23 +46,32 @@ export const TraineeList: React.FC = () => {
             email: trainee.email,
             timezone: trainee.timezone
         });
+        setError('');
     };
 
     const handleCancelEdit = () => {
         setEditingId(null);
         setEditForm({});
+        setError('');
     };
 
     const handleUpdate = async (id: string) => {
+        setError('');
+        const trimmedName = (editForm.name || '').trim();
+        if (!trimmedName) {
+            setError('Name cannot be empty or only spaces.');
+            return;
+        }
         try {
-            await traineesService.updateTrainee(id, editForm);
+            await traineesService.updateTrainee(id, { ...editForm, name: trimmedName });
             const updatedTrainees = trainees.map(trainee =>
-                trainee.id === id ? { ...trainee, ...editForm } : trainee
+                trainee.id === id ? { ...trainee, ...editForm, name: trimmedName } : trainee
             );
             setTrainees(updatedTrainees);
             setEditingId(null);
             setEditForm({});
         } catch (error) {
+            setError('Failed to update trainee.');
             console.error('Failed to update trainee:', error);
         }
     };
@@ -79,6 +89,7 @@ export const TraineeList: React.FC = () => {
     return (
         <div className="trainee-list">
             <h2>Trainees</h2>
+            {error && <div style={{ color: 'red', marginBottom: '10px' }}>{error}</div>}
             <table>
                 <thead>
                     <tr>
